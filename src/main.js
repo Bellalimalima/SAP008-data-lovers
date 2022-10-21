@@ -12,8 +12,8 @@ const rickandmorty = data.results;
 criaCard(rickandmorty);
 
 function criaCard(personagens) {
-  const printarCard = personagens.map((personagem) => {
-    const criandoCard = `
+  const template = personagens.map((personagem) =>
+    `
         <div class = "cardsBox">
             <div class = "imagem">
              <img class = "imagemCard" src="${personagem.image}" alt="Imagem personagem">
@@ -25,11 +25,11 @@ function criaCard(personagens) {
              <li>Status: ${personagem.status}</li>
             </ul>
         </div>
-        `;
-    return criandoCard;
-  });
+        `
 
-  document.querySelector("#exibirCards").innerHTML = printarCard.join("");
+  );
+
+  document.querySelector("#exibirCards").innerHTML = template.join("");
 }
 
 document.querySelector("#especie").addEventListener("change", (event) => {
@@ -39,7 +39,7 @@ document.querySelector("#especie").addEventListener("change", (event) => {
   const calculo = calculoAgregado(rickandmorty.length, especieFiltrada.length);
   document.getElementById("exibirCalculo").innerHTML =
     "Essa categoria representa " + calculo + "% dos personagens";
- 
+
   criaCard(especieFiltrada);
 });
 
@@ -68,9 +68,6 @@ document.querySelector("#status").addEventListener("change", (event) => {
 document.querySelector("#ordemalfabetica").addEventListener("change", (event) => {
   const valor = event.target.value;
   const ordem = ordenar(rickandmorty, valor);
-  const calculo = calculoAgregado(rickandmorty.length, ordem.length);
-  document.getElementById("exibirCalculo").innerHTML =
-    "Essa categoria representa " + calculo + "% dos personagens";
 
   criaCard(ordem);
 });
